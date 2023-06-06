@@ -18,6 +18,7 @@ auto_net_state_mon=1
 auto_answer_replacing_calls=1
 ping_with_options=0
 use_cpim=1
+verify_server_certs=0
 zrtp_key_agreements_suites=MS_ZRTP_KEY_AGREEMENT_K255_KYB512
 chat_messages_aggregation_delay=1000
 chat_messages_aggregation=1
