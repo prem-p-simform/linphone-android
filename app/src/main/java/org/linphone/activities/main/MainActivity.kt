@@ -341,6 +341,7 @@ class MainActivity : GenericActivity(), SnackBarActivity, NavController.OnDestin
                 Log.i("[Main Activity] Found dialer intent extra, go to dialer")
                 val args = Bundle()
                 args.putBoolean("Transfer", intent.getBooleanExtra("Transfer", false))
+                args.putBoolean("SupervisedTransfer", intent.getBooleanExtra("SupervisedTransfer", false))
                 navigateToDialer(args)
             }
             else -> {

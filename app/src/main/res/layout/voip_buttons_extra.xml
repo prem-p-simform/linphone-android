@@ -112,11 +112,31 @@
             android:text="@string/call_action_transfer_call"
             android:visibility="@{conferenceViewModel.conferenceExists ? View.GONE : View.VISIBLE, default=gone}"
             app:drawableTopCompat="@drawable/icon_call_forward"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/conference_participants"
+            app:layout_constraintBottom_toBottomOf="@+id/supervised_transfer_call"
+            app:layout_constraintEnd_toStartOf="@+id/supervised_transfer_call"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/numpad" />
+            app:layout_constraintTop_toTopOf="@+id/supervised_transfer_call"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/supervised_transfer_call"
+            style="@style/call_options_font"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="@{() -> controlsViewModel.goToDialerForSupervisedTransfer()}"
+            android:text="Supervised Transfer call"
+            android:visibility="@{conferenceViewModel.conferenceExists ? View.GONE : View.VISIBLE, default=gone}"
+            app:drawableTopCompat="@drawable/icon_call_forward"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toEndOf="@+id/transfer_call"
+            app:layout_constraintTop_toBottomOf="@+id/calls"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/conference_participants"
@@ -131,7 +151,7 @@
             app:layout_constraintBottom_toBottomOf="@id/calls"
             app:layout_constraintEnd_toStartOf="@id/add_call"
             app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintStart_toEndOf="@id/transfer_call"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/calls" />
 
         <TextView
@@ -175,7 +195,6 @@
             android:onClick="@{() -> controlsViewModel.goToCallsList()}"
             android:text="@string/call_action_calls_list"
             app:drawableTopCompat="@drawable/icon_calls_list"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/conference_layout"
             app:layout_constraintTop_toBottomOf="@id/chat" />

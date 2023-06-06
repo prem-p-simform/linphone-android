@@ -38,4 +38,6 @@ open class Event<out T>(private val content: T) {
             handleContent(content)
         }
     }
+
+    fun peekContent(): T = content
 }

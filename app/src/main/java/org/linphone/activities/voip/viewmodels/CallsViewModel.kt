@@ -67,6 +67,10 @@ class CallsViewModel : ViewModel() {
         MutableLiveData<Event<String>>()
     }
 
+    val isDoingSupervisedTransfer: MutableLiveData<Boolean> by lazy {
+        MutableLiveData<Boolean>(false)
+    }
+
     private val listener = object : CoreListenerStub() {
         override fun onChatRoomRead(core: Core, chatRoom: ChatRoom) {
             updateUnreadChatCount()
@@ -190,6 +194,9 @@ class CallsViewModel : ViewModel() {
         params.isVideoEnabled = true
         val conference = core.createConferenceWithParams(params)
         conference?.addParticipants(core.calls)
+    }
+
+    fun completeSupervisedTransfer() {
     }
 
     private fun initCallList() {

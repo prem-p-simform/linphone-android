@@ -111,6 +111,21 @@
                 android:src="@drawable/icon_merge_calls_local_conference"
                 android:contentDescription="@string/cancel"/>
 
+            <TextView
+                android:onClick="@{() -> callsViewModel.completeSupervisedTransfer()}"
+                android:enabled="@{callsViewModel.callsData.size() >= 1 &amp;&amp; callsViewModel.isDoingSupervisedTransfer}"
+                android:visibility="@{conferenceViewModel.conferenceExists ? View.GONE : View.VISIBLE}"
+                android:textStyle="bold"
+                android:padding="8dp"
+                android:gravity="center"
+                android:textColor="@color/white_color"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/voip_floating_button_size"
+                android:layout_margin="10dp"
+                android:background="@drawable/button_rectangle_background"
+                android:text="Complete Transfer"
+                android:contentDescription="@string/cancel"/>
+
         </LinearLayout>
 
         <org.linphone.activities.voip.views.RoundCornersTextureView

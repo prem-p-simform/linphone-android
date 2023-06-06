@@ -927,11 +927,16 @@ internal fun IncomingCallFragment.navigateToActiveCall() {
     )
 }
 
-internal fun SingleCallFragment.navigateToCallsList() {
+internal fun SingleCallFragment.navigateToCallsList(
+    isSupervisedTransfer: Boolean
+) {
     if (findNavController().currentDestination?.id == R.id.singleCallFragment) {
+        val args = Bundle().apply {
+            putBoolean("SupervisedTransfer", isSupervisedTransfer)
+        }
         findNavController().navigate(
             R.id.action_singleCallFragment_to_callsListFragment,
-            null,
+            args,
             popupTo()
         )
     }

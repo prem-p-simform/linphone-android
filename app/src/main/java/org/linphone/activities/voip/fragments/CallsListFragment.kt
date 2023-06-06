@@ -64,6 +64,12 @@ class CallsListFragment : GenericVideoPreviewFragment<VoipCallsListFragmentBindi
 
         setupLocalViewPreview(binding.localPreviewVideoSurface, binding.switchCamera)
 
+        if (arguments?.containsKey("SupervisedTransfer") == true) {
+            arguments?.getBoolean("SupervisedTransfer", false)?.let {
+                callsViewModel.isDoingSupervisedTransfer.value = it
+            }
+        }
+
         binding.setCancelClickListener {
             goBack()
         }

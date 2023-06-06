@@ -99,8 +99,13 @@ class ControlsViewModel : ViewModel() {
         MutableLiveData<Event<String>>()
     }
 
-    val goToDialerEvent: MutableLiveData<Event<Boolean>> by lazy {
-        MutableLiveData<Event<Boolean>>()
+    val goToDialerEvent: MutableLiveData<Event<DialerEvent>> by lazy {
+        MutableLiveData<Event<DialerEvent>>()
+    }
+    sealed class DialerEvent {
+        object NewCall : DialerEvent()
+        object BlindTransfer : DialerEvent()
+        object SupervisedTransfer : DialerEvent()
     }
 
     val foldingState = MutableLiveData<FoldingFeature>()
@@ -399,7 +404,9 @@ class ControlsViewModel : ViewModel() {
     }
 
     fun goToCallsList() {
-        goToCallsListEvent.value = Event(true)
+        goToCallsListEvent.value = Event(
+            goToDialerEvent.value?.peekContent() == DialerEvent.SupervisedTransfer
+        )
     }
 
     fun showCallStats(skipAnimation: Boolean = false) {
@@ -416,11 +423,15 @@ class ControlsViewModel : ViewModel() {
     }
 
     fun goToDialerForCallTransfer() {
-        goToDialerEvent.value = Event(true)
+        goToDialerEvent.value = Event(DialerEvent.BlindTransfer)
+    }
+
+    fun goToDialerForSupervisedTransfer() {
+        goToDialerEvent.value = Event(DialerEvent.SupervisedTransfer)
     }
 
     fun goToDialerForNewCall() {
-        goToDialerEvent.value = Event(false)
+        goToDialerEvent.value = Event(DialerEvent.NewCall)
     }
 
     private fun updateUI() {

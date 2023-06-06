@@ -128,8 +128,8 @@ class SingleCallFragment : GenericVideoPreviewFragment<VoipSingleCallFragmentBin
         controlsViewModel.goToCallsListEvent.observe(
             viewLifecycleOwner
         ) {
-            it.consume {
-                navigateToCallsList()
+            it.consume { isSupervisedTransfer ->
+                navigateToCallsList(isSupervisedTransfer)
             }
         }
 
@@ -170,12 +170,24 @@ class SingleCallFragment : GenericVideoPreviewFragment<VoipSingleCallFragmentBin
         controlsViewModel.goToDialerEvent.observe(
             viewLifecycleOwner
         ) {
-            it.consume { isCallTransfer ->
-                val intent = Intent()
-                intent.setClass(requireContext(), MainActivity::class.java)
-                intent.putExtra("Dialer", true)
-                intent.putExtra("Transfer", isCallTransfer)
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            it.consume { event ->
+                val intent = Intent().apply {
+                    setClass(requireContext(), MainActivity::class.java)
+                    putExtra("Dialer", true)
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    when (event) {
+                        ControlsViewModel.DialerEvent.BlindTransfer -> {
+                            putExtra("Transfer", true)
+                        }
+                        ControlsViewModel.DialerEvent.NewCall -> {
+                            putExtra("Transfer", false)
+                        }
+                        ControlsViewModel.DialerEvent.SupervisedTransfer -> {
+                            putExtra("Transfer", false)
+                            putExtra("SupervisedTransfer", true)
+                        }
+                    }
+                }
                 startActivity(intent)
             }
         }

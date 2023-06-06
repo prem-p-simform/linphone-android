@@ -167,6 +167,10 @@ class DialerFragment : SecureFragment<DialerFragmentBinding>() {
             Log.i("[Dialer] Is pending call transfer: ${sharedViewModel.pendingCallTransfer}")
         }
 
+        if (arguments?.containsKey("SupervisedTransfer") == true) {
+            sharedViewModel.isSupervisedTransfer = arguments?.getBoolean("SupervisedTransfer") ?: false
+        }
+
         if (arguments?.containsKey("URI") == true) {
             val address = arguments?.getString("URI") ?: ""
             Log.i("[Dialer] Found URI to call: $address")
@@ -183,6 +187,7 @@ class DialerFragment : SecureFragment<DialerFragmentBinding>() {
 
         Log.i("[Dialer] Pending call transfer mode = ${sharedViewModel.pendingCallTransfer}")
         viewModel.transferVisibility.value = sharedViewModel.pendingCallTransfer
+//            sharedViewModel.isSupervisedTransfer
 
         checkForUpdate()
 

@@ -100,6 +100,8 @@ class SharedMainViewModel : ViewModel() {
 
     var pendingCallTransfer: Boolean = false
 
+    var isSupervisedTransfer: Boolean = false
+
     /* Conference */
 
     val addressOfConferenceInfoToEdit: MutableLiveData<Event<String>> by lazy {
